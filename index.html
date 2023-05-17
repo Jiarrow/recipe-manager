@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Recipe Manager</title>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="task-input">
+            <img src="bars-icon.svg">
+            <input type="text" placeholder="search...">
+        </div>
+
+        <div class="controls">
+            <div class="filters">
+                <span id="recipe" class="active">
+                    Recipe
+                    
+                </span>
+                <span id="Saved">Saved</span>
+                <span id="BuyList">BuyList</span>
+            </div>
+            <button id="clearBtn" class="clear-btn">Clear All</button>
+        </div>
+        <ul class="task-box">
+        </ul>
+
+    </div>
+    <div id="recipeContainer">
+        <ul id="recipeList">
+          <!-- 這裡是動態生成的食譜項目 -->
+        </ul>
+      </div>
+      
+
+    <script src="index.js"></script>
+</body>
+
+</html>
