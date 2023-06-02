@@ -1,46 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
-body{
+body {
     width: 100%;
     height: 100vh;
     overflow: hidden;
     background: #1e293b;
 }
 
-::selection{
+::selection {
     color: #fff;
     background: #1e293b;
 }
 
-.wrapper{
+.wrapper {
     max-width: 405px;
     background: #fff;
-    margin: 137px auto;
+    margin: 25px auto 137px;
     padding: 28px 0 30px;
     border-radius: 7px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.task-input{
+.recipe-input {
     height: 52px;
     padding: 0 25px;
     position: relative;
 }
 
-.task-input img{
+.recipe-input img {
     top: 50%;
     position: absolute;
     transform: translate(17px, -50%);
 }
 
-.task-input input{
+.recipe-input input {
     height: 100%;
     width: 100%;
     outline: none;
@@ -50,42 +50,44 @@ body{
     border: 1px solid #999;
 }
 
-.task-input input:focus, .task-input input.active{
+.recipe-input input:focus,
+.recipe-input input.active {
     padding-left: 52px;
     border: 2px solid #1e293b;
 }
 
-.task-input input::placeholder{
+.recipe-input input::placeholder {
     color: #bfbfbf;
 }
 
-.controls, li{
+.controls,
+li {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.controls{
+.controls {
     padding: 18px 25px;
     border-bottom: 1px solid #ccc;
 }
 
-.filters span{
+.filters span {
     margin: 0 8px;
     font-size: 17px;
     color: #444;
     cursor: pointer;
 }
 
-.filters span:first-child{
+.filters span:first-child {
     margin-left: 0;
 }
 
-.filters span.active{
+.filters span.active {
     color: #1e293b;
 }
 
-.controls .clear-btn{
+.controls .clear-btn {
     border: none;
     opacity: 0.6;
     outline: none;
@@ -100,41 +102,41 @@ body{
     transition: transform 0.25s ease;
 }
 
-.clear-btn.active{
+.clear-btn.active {
     opacity: 0.9;
     pointer-events: auto;
 }
 
-.clear-btn:active{
+.clear-btn:active {
     transform: scale(0.93);
 }
 
-.task-box{
+.recipe-box {
     margin-top: 20px;
     margin-right: 5px;
     padding: 0 20px 10px 25px;
 }
 
-.task-box.overflow{
+.recipe-box.overflow {
     overflow-y: auto;
     max-height: 300px;
 }
 
-.task-box::-webkit-scrollbar{
+.recipe-box::-webkit-scrollbar {
     width: 5px;
 }
 
-.task-box::-webkit-scrollbar-track{
+.recipe-box::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 25px;
 }
 
-.task-box::-webkit-scrollbar-thumb{
+.recipe-box::-webkit-scrollbar-thumb {
     background: #e6e6e6;
     border-radius: 25px;
 }
 
-.task-box .task{
+.recipe-box .task {
     list-style: none;
     font-size: 17px;
     margin-bottom: 18px;
@@ -143,41 +145,41 @@ body{
     border-bottom: 1px solid #ccc;
 }
 
-.task-box .task:last-child{
+.recipe-box .task:last-child {
     margin-bottom: 0;
     border-bottom: 0;
     padding-bottom: 0;
 }
 
-.task-box .task label{
+.recipe-box .task label {
     display: flex;
     align-items: flex-start;
 }
 
-.task-box label input{
+.recipe-box label input {
     margin-top: 7px;
     accent-color: #1e293b;
 }
 
-.task-box label p{
+.recipe-box label p {
     user-select: none;
     margin-left: 12px;
     word-wrap: break-word;
 }
 
-.task label p.checked{
+.task label p.checked {
     text-decoration: line-through;
 }
 
-.task-box .settings{
+.recipe-box .settings {
     position: relative;
 }
 
-.settings :where(i, li){
+.settings :where(i, li) {
     cursor: pointer;
 }
 
-.settings .task-menu{
+.settings .task-menu {
     z-index: 10;
     right: -5px;
     bottom: -65px;
@@ -191,21 +193,21 @@ body{
     transition: transform 0.2s ease;
 }
 
-.task-box .task:last-child .task-menu{
+.recipe-box .task:last-child .task-menu {
     bottom: 0;
     transform-origin: bottom right;
 }
 
-.task-box .task:first-child .task-menu{
+.recipe-box .task:first-child .task-menu {
     bottom: -65px;
     transform-origin: top right;
 }
 
-.task-menu.show{
+.task-menu.show {
     transform: scale(1);
 }
 
-.task-menu li{
+.task-menu li {
     height: 25px;
     font-size: 16px;
     margin-bottom: 2px;
@@ -214,90 +216,200 @@ body{
     justify-content: flex-start;
 }
 
-.task-menu li:last-child{
+.task-menu li:last-child {
     margin-bottom: 0;
 }
 
-.settings li:hover{
+.settings li:hover {
     background: #f5f5f5;
 }
 
-.settings li i{
+.settings li i {
     padding-right: 8px;
 }
 
-@media (max-width: 400px){
-    body{
+@media (max-width: 400px) {
+    body {
         padding: 0 10px;
         /* height: 10px;
         overflow: scroll; */
         /* 設置滾動行為，根據需要選擇 scroll 或 auto */
     }
 
-    .wrapper{
+    .wrapper {
         padding: 20px 0;
     }
 
-    .filters span{
+    .filters span {
         margin: 0 5px;
     }
 
-    .task-input{
+    .recipe-input {
         padding: 0 20px;
     }
 
-    .controls{
+    .controls {
         padding: 18px 20px;
     }
 
-    .task-box{
+    .recipe-box {
         margin-top: 20px;
         margin-right: 5px;
         padding: 0 15px 10px 20px;
     }
 
-    .task label input{
+    .task label input {
         margin-top: 4px;
     }
-      
+
 
 }
 
 .recipe-image {
-    width: 150px; /* 或者你可以設置為固定的寬度，如 width: 200px; */
+    width: 150px;
+    /* 或者你可以設置為固定的寬度，如 width: 200px; */
     height: auto;
-    object-fit: contain; /* 根據圖片比例自動調整大小，並保持圖片完整顯示 */
-  }
+    object-fit: contain;
+    /* 根據圖片比例自動調整大小，並保持圖片完整顯示 */
+}
 
-  .recipe-title {
-    width: 150px; /* 設置標題區域的固定寬度 */
-    white-space: nowrap; /* 防止文字換行 */
-    overflow: hidden; /* 隱藏超出寬度的文字 */
-    text-overflow: ellipsis; /* 在超出寬度時顯示省略號 */
-    cursor: pointer; /* 設置游標樣式為指針 */
-  }
+.recipe-title {
+    width: 150px;
+    /* 設置標題區域的固定寬度 */
+    white-space: nowrap;
+    /* 防止文字換行 */
+    overflow: hidden;
+    /* 隱藏超出寬度的文字 */
+    text-overflow: ellipsis;
+    /* 在超出寬度時顯示省略號 */
+    cursor: pointer;
+    /* 設置游標樣式為指針 */
+}
 
-  .recipe-title:hover {
-    white-space: normal; /* 在懸停時取消文字換行限制 */
-    overflow: visible; /* 顯示完整的內容 */
-    text-overflow: clip; /* 不再顯示省略號 */
-  }
+.recipe-title:hover {
+    white-space: normal;
+    /* 在懸停時取消文字換行限制 */
+    overflow: visible;
+    /* 顯示完整的內容 */
+    text-overflow: clip;
+    /* 不再顯示省略號 */
+}
 
-  #recipeContainer {
-  height: 400px; /* 設定容器的高度 */
-  overflow: auto; /* 添加滾動條，只有在容器內容超出高度時才顯示 */
+#recipeContainer {
+    height: 400px;
+    /* 設定容器的高度 */
+    overflow: auto;
+    /* 添加滾動條，只有在容器內容超出高度時才顯示 */
 }
 
 #recipeList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.task-box {
-    height: 400px; /* 設置適當的高度 */
+.recipe-box {
+    height: 395px;
+    /* 設置適當的高度 */
     overflow-y: auto;
-  }
-  
-  
-  
+}
+
+/* 模态窗口的背景 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 5px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.recipe-name {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.recipe-image-in-modal {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.recipe-ingredients {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.recipe-instructions {
+  list-style-type: decimal;
+  padding-left: 20px;
+}
+
+/* 略過原有的 CSS，不做修改 */
+
+.instruction-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.instruction-button {
+    padding: 5px 10px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.instruction-button:focus {
+    outline: none;
+}
+
+.instruction-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.step-heading {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.saved-icon {
+    cursor: pointer;
+}

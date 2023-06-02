@@ -2,43 +2,51 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <link rel="stylesheet" href="style.css" />
     <title>Recipe Manager</title>
 </head>
 
 <body>
-
     <div class="wrapper">
-        <div class="task-input">
-            <img src="bars-icon.svg">
-            <input type="text" placeholder="search...">
+        <div class="recipe-input">
+            <img src="bars-icon.svg" />
+            <input type="text" placeholder="search..." />
         </div>
 
         <div class="controls">
             <div class="filters">
-                <span id="recipe" class="active">
-                    Recipe
-                    
-                </span>
+                <span id="recipe" class="active"> Recipe </span>
                 <span id="Saved">Saved</span>
                 <span id="BuyList">BuyList</span>
             </div>
+            
             <button id="clearBtn" class="clear-btn">Clear All</button>
         </div>
-        <ul class="task-box">
-        </ul>
-
+        <ul class="recipe-box"></ul>
     </div>
-    <div id="recipeContainer">
-        <ul id="recipeList">
-          <!-- 這裡是動態生成的食譜項目 -->
-        </ul>
-      </div>
-      
+
+    <!-- 模态窗口，初始时隐藏 -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="recipeName" class="recipe-name"></h2>
+            <img id="recipeImage" class="recipe-image-in-modal" src="" alt="Recipe Image">
+            <h3 class="section-title">Ingredients</h3>
+            <ul id="recipeIngredients" class="recipe-ingredients"></ul>
+            <h3 class="section-title">Instructions</h3>
+            <div class="step-heading">Step</div>
+            <div class="instruction-wrapper">
+                <button id="prevButton" class="instruction-button">Prev</button>
+                <ol id="recipeInstructions" class="recipe-instructions">some texts</ol>
+                <button id="nextButton" class="instruction-button">Next</button>
+            </div>
+        </div>
+    </div>
+
 
     <script src="index.js"></script>
 </body>
