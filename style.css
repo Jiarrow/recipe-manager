@@ -84,7 +84,7 @@ li {
 }
 
 .filters span.active {
-    color: #1e293b;
+    color: #482cfe;
 }
 
 .controls .clear-btn {
@@ -411,5 +411,9 @@ li {
 }
 
 .saved-icon {
+    cursor: pointer;
+}
+
+.trash-icon {
     cursor: pointer;
 }
