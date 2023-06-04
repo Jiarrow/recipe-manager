@@ -417,3 +417,13 @@ li {
 .trash-icon {
     cursor: pointer;
 }
+
+.ingredient-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ingredient-name {
+    margin-right: 10px;
+}
