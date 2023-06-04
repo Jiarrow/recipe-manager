@@ -1,9 +1,9 @@
 const recipeInput = document.querySelector(".recipe-input input");
 const recipeBox = document.querySelector(".recipe-box");
 // const APIKey = "c1aeb73bdc6b46b1a099acfc9ecaba78"; // ncufood
-const APIKey = "01f045ce89984e94b2947c5adab48ce5"; // ncufood2
-// const APIKey = 'ffd949fd26bb48cb81fd04bec35c3e43'; // jia 1
-// const APIKey = '72790c6a97ae465385b0d0ae0a5aa48a'; // jia 2
+// const APIKey = "01f045ce89984e94b2947c5adab48ce5"; // ncufood2
+// const APIKey = "ffd949fd26bb48cb81fd04bec35c3e43"; // jia 1
+const APIKey = '72790c6a97ae465385b0d0ae0a5aa48a'; // jia 2
 
 const clearBtn = document.getElementById("clearBtn");
 
@@ -42,8 +42,21 @@ let recipesTitle;
 let recipesInstructions;
 
 // Saved recipe
-let savedRecipeTitles = JSON.parse(localStorage.getItem("recipe-title")) === null ? [] : JSON.parse(localStorage.getItem("recipe-title"));
-let savedRecipeImages = JSON.parse(localStorage.getItem("recipe-image")) === null ? [] : JSON.parse(localStorage.getItem("recipe-image"));
+let savedRecipeTitles =
+  JSON.parse(localStorage.getItem("recipe-title")) === null
+    ? []
+    : JSON.parse(localStorage.getItem("recipe-title"));
+let savedRecipeImages =
+  JSON.parse(localStorage.getItem("recipe-image")) === null
+    ? []
+    : JSON.parse(localStorage.getItem("recipe-image"));
+let savedRecipeIngredients = [];
+
+// buylist
+let buylist =
+  JSON.parse(localStorage.getItem("buylist")) === null
+    ? []
+    : JSON.parse(localStorage.getItem("buylist"));
 
 function recipesInit() {
   recipeNumber = 0;
@@ -75,9 +88,17 @@ function findIndexOfRecipe(title) {
   return -1;
 }
 
+function findIndexOfSavedRecipe(title) {
+  for (let i = 0; i < savedRecipeTitles.length; i++) {
+    if (savedRecipeTitles[i] === title)
+      return i;
+  }
+  return -1;
+}
+
 function setEventForRecipe(recipe) {
   const title = recipe.querySelector(".recipe-title");
-  
+
   title.addEventListener("click", function () {
     // console.log(recipe);
 
@@ -94,17 +115,16 @@ function setEventForRecipe(recipe) {
       ingredient.innerHTML = `${ingredients[i].name} ${ingredients[i].amount.us.value} ${ingredients[i].amount.us.unit}`;
       ingredientsInModal.appendChild(ingredient);
     }
-    
+
     // set instructions in modal
     // console.log(recipesInstructions[index]);
-    
+
     currentStepIndex = 0;
     currentInstruction = recipesInstructions[index];
     stepNumInModal.textContent = "Step" + " " + (currentStepIndex + 1);
     instructionsInModal.innerHTML = currentInstruction[currentStepIndex];
 
     modal.style.display = "block";
-
   });
 }
 
@@ -129,16 +149,41 @@ nextButton.addEventListener("click", function () {
 
 function setEventForPlusIcon(recipe) {
   const plusIcon = recipe.querySelector(".uil-plus");
-  
+
   plusIcon.addEventListener("click", function () {
     console.log("You clicked the plus icon!");
     // 執行其他操作...
     savedRecipeTitles.push(recipe.querySelector(".recipe-title").textContent);
+    console.log(recipe.querySelector(".recipe-title").textContent);
+    console.log(savedRecipeTitles);
     savedRecipeImages.push(recipe.querySelector(".recipe-image").src);
+    let index = findIndexOfRecipe(
+      recipe.querySelector(".recipe-title").textContent
+    );
+    savedRecipeIngredients.push(recipesIngredient[index]);
+    for (let i = 0; i < recipesIngredient[index].length; i++) {
+      let ingredient = recipesIngredient[index][i];
+      let existed = false;
+      for (let j = 0; buylist !== null && j < buylist.length; j++) {
+        if (ingredient.name === buylist[j][0]) {
+          buylist[j][1] += ingredient.amount.metric.value;
+          existed = true;
+          break;
+        }
+      }
+      if (!existed) {
+        buylist.push([
+          ingredient.name,
+          ingredient.amount.metric.value,
+          ingredient.amount.metric.unit,
+        ]);
+      }
+    }
     localStorage.setItem("recipe-title", JSON.stringify(savedRecipeTitles));
     localStorage.setItem("recipe-image", JSON.stringify(savedRecipeImages));
-    console.log(savedRecipeTitles);
-    console.log(savedRecipeImages);
+    localStorage.setItem("buylist", JSON.stringify(buylist));
+    // console.log(savedRecipeTitles);
+    // console.log(savedRecipeImages);
   });
 }
 
@@ -146,8 +191,38 @@ function setEventForTrashIcon(recipe) {
   const trashIcon = recipe.querySelector(".uil-trash");
   trashIcon.addEventListener("click", function () {
     console.log("You clicked the trash icon!");
-    savedRecipeTitles = savedRecipeTitles.filter((title) => title !== recipe.querySelector(".recipe-title").textContent);
-    savedRecipeImages = savedRecipeImages.filter((image) => image!== recipe.querySelector(".recipe-image").src);
+    let index = findIndexOfSavedRecipe(
+      recipe.querySelector(".recipe-title").textContent
+    );
+    // delete saved recipe title
+    savedRecipeTitles = savedRecipeTitles.filter(
+      (title) => title !== recipe.querySelector(".recipe-title").textContent
+    );
+    localStorage.setItem("recipe-title", JSON.stringify(savedRecipeTitles));
+    
+    // delete saved recipe image
+    savedRecipeImages = savedRecipeImages.filter(
+      (image) => image !== recipe.querySelector(".recipe-image").src
+    );
+    localStorage.setItem("recipe-image", JSON.stringify(savedRecipeImages));
+    
+    // delete saved recipe ingredients
+    
+    console.log(index);
+    for (let i = index; savedRecipeIngredients != null && i < savedRecipeIngredients[index].length; i++) {
+      const ingr = savedRecipeIngredients[index][i];
+      for (let j = 0; buylist !== null && j < buylist.length; j++) {
+        if (ingr.name === buylist[j][0]) {
+          buylist[j][1] -= ingr.amount.metric.value;
+          if (buylist[j][1] <= 0) {
+            buylist.splice(j, 1);
+            localStorage.setItem("buylist", JSON.stringify(buylist));
+          }
+          break;
+        }
+      }
+    }
+    savedRecipeIngredients.splice(index, 1);
     refresh();
   });
 }
@@ -226,7 +301,6 @@ recipeInput.addEventListener("keydown", async (event) => {
       const data = await response.json();
 
       data.results.forEach((recipe) => {
-        
         recipesID.push(recipe.id);
         recipesTitle.push(recipe.title);
         recipesImageURL.push(recipe.image);
@@ -249,7 +323,6 @@ recipeInput.addEventListener("keydown", async (event) => {
   }
 });
 
-
 recipeBox.addEventListener("click", (event) => {
   const target = event.target;
   if (target.classList.contains("uil-trash-alt")) {
@@ -260,6 +333,7 @@ recipeBox.addEventListener("click", (event) => {
 
 clearBtn.addEventListener("click", () => {
   recipeBox.innerHTML = "";
+  localStorage.removeItem("buylist");
 });
 
 function createRecipeListItem(title, imageUrl) {
@@ -324,6 +398,18 @@ savedButton.addEventListener("click", function () {
 buylistButton.addEventListener("click", function () {
   updateStatus(buylistButton);
   recipeBox.innerHTML = "";
+  if (buylist === null) return;
+  for (let i = 0; i < buylist.length; i++) {
+    const listItem = document.createElement("li");
+    listItem.innerHTML = `<span class="ingredient-name">${buylist[i][0]}</span>
+    <span class="ingredient-quantity">${buylist[i][1] + buylist[i][2]}</span>`;
+
+    recipeBox.appendChild(listItem);
+    recipeBox.appendChild(document.createElement("br"));
+    recipeBox.appendChild(document.createElement("hr"));
+    recipeBox.appendChild(document.createElement("br"));
+    recipeBox.scrollTop = recipeBox.scrollHeight;
+  }
 });
 
 function updateStatus(btn) {
