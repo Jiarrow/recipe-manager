@@ -1,9 +1,9 @@
 const recipeInput = document.querySelector(".recipe-input input");
 const recipeBox = document.querySelector(".recipe-box");
-// const APIKey = "c1aeb73bdc6b46b1a099acfc9ecaba78"; // ncufood
+const APIKey = "c1aeb73bdc6b46b1a099acfc9ecaba78"; // ncufood
 // const APIKey = "01f045ce89984e94b2947c5adab48ce5"; // ncufood2
 // const APIKey = "ffd949fd26bb48cb81fd04bec35c3e43"; // jia 1
-const APIKey = '72790c6a97ae465385b0d0ae0a5aa48a'; // jia 2
+// const APIKey = '72790c6a97ae465385b0d0ae0a5aa48a'; // jia 2
 
 const clearBtn = document.getElementById("clearBtn");
 
@@ -68,14 +68,16 @@ function recipesInit() {
 }
 
 function savedRecipeInit() {
-  if (savedRecipeTitles === null) {
-    console.log("no saved recipe title");
     savedRecipeTitles = [];
-  }
-  if (savedRecipeImages === null) {
-    console.log("no saved recipe image");
     savedRecipeImages = [];
-  }
+    savedRecipeIngredients = [];
+    buylist = [];
+}
+
+function removeSavedLocalStorage() {
+  localStorage.removeItem("recipe-title");
+  localStorage.removeItem("recipe-image");
+  localStorage.removeItem("buylist");
 }
 
 function findIndexOfRecipe(title) {
@@ -332,8 +334,17 @@ recipeBox.addEventListener("click", (event) => {
 });
 
 clearBtn.addEventListener("click", () => {
-  recipeBox.innerHTML = "";
-  localStorage.removeItem("buylist");
+  
+  const btn = document.querySelector("span.active");
+  if (btn.textContent === "Recipe") {
+    recipeBox.innerHTML = "";
+    recipesInit();
+  } 
+  else if (btn.textContent === "Saved") {
+    recipeBox.innerHTML = "";
+    savedRecipeInit();
+    removeSavedLocalStorage();
+  }
 });
 
 function createRecipeListItem(title, imageUrl) {
