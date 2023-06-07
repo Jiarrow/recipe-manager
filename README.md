@@ -5,6 +5,7 @@
 - 食材自動計算
 
 ## 初始化界面
+![](https://hackmd.io/_uploads/ryNwjbRI3.png)
 
 ## 食譜搜尋介面
 
