@@ -8,7 +8,13 @@
 ![](https://i.imgur.com/5gG3m6g.png)
 
 ## 食譜搜尋介面
+![Imgur](https://i.imgur.com/Zt3Fyo9.png)
 
 ## 食譜儲存介面
+![Imgur](https://i.imgur.com/MfiY2B9.png)
 
 ## 食材購物清單介面
+![Imgur](https://i.imgur.com/y4xKZNu.png)
+
+## 食譜詳細資訊
+![Imgur](https://i.imgur.com/B1VkoNG.png)
