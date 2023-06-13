@@ -3,6 +3,8 @@
 - 食譜搜尋
 - 食譜儲存
 - 食材自動計算
+## 影片
+https://www.youtube.com/watch?v=e5-psnxy600
 
 ## 初始化界面
 ![](https://i.imgur.com/5gG3m6g.png)
