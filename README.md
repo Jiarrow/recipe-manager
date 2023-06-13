@@ -7,7 +7,7 @@
 https://www.youtube.com/watch?v=e5-psnxy600
 
 ## API
-使用![spoonacular API](https://spoonacular.com/food-api/docs)
+使用[spoonacular API](https://spoonacular.com/food-api/docs)
 
 ## 初始化界面
 ![](https://i.imgur.com/5gG3m6g.png)
